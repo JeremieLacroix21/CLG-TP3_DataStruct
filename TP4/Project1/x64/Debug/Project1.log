@@ -1,0 +1,3 @@
+﻿  Grille.cpp
+c:\users\201756835\downloads\tp4-20181130t155000z-001\tp4\project1\grille.cpp(34): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+  Project1.vcxproj -> C:\Users\201756835\Downloads\TP4-20181130T155000Z-001\TP4\x64\Debug\TP4_JérémieLacroix.exe
