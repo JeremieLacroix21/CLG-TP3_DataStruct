@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <list>
 using namespace std;
 class Grille
 {
@@ -15,7 +16,8 @@ public:
 	void Solutionner();
 	
 private:
-	void TrouverChemin();
+	/*void EtablirListe(Liste &laListe, int x, int y);*/
+	void TrouverChemin(int X, int Y);
 	void TrouverEntrer();
 	void TrouverSortie();
 	void AfficherChemin();
@@ -23,6 +25,7 @@ private:
 	vector<int> PosSortie;
 	Matrice<bool> CaseVisite;
 	Matrice<char> Matrice;
+	int meilleurtemps;
 	int TailleGrille;
 
 };

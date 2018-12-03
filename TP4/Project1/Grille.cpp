@@ -51,15 +51,34 @@ void Grille::Solutionner()
 	CaseVisite.SetNbLignes(Matrice.GetNbLignes());
 	CaseVisite.SetNbColonnes(Matrice.GetNbColonnes());
 	CaseVisite[PosEntrer[0]][PosEntrer[1]] = true;
-	//CaseVisite[PosSortie[0]][PosSortie[1]] = true;
-	
-	TrouverChemin();
+	TrouverChemin(PosEntrer[0],PosEntrer[1]);
 
 }
 
-void Grille::TrouverChemin()
+void Grille::TrouverChemin(int X, int Y)
 {
+	if (X == 0)//mouvement possible : haut,bas,droite
+	{
+
+	}
+	if (Y == Matrice.GetNbLignes())//mouvement possible : 
+	{
+
+	}
 	
+	if (X == Matrice.GetNbColonnes())//mouvement possible : haut,bas,gauche.
+	{
+
+	}
+	if (Y == 0)//mouvement possible : gauche,droite,bas
+	{
+
+	}
+	if (Matrice[X][Y] == 'B')
+	{
+
+	}
+
 
 }
 
@@ -114,4 +133,30 @@ void Grille::AfficherChemin()
 }
 
 
+void Grille::EtablirListe(Liste &laListe, int x, int y)
+{
+	// A partir de la coordonnee x y, établir quelles sont les
+	// cases que l'on doit aller visiter.
+	if (Verifier(x - 2, y - 1)) laListe.Ajouter(x - 2, y - 1);
+	if (Verifier(x - 2, y + 1)) laListe.Ajouter(x - 2, y + 1);
+	if (Verifier(x + 2, y - 1)) laListe.Ajouter(x + 2, y - 1);
+	if (Verifier(x + 2, y + 1)) laListe.Ajouter(x + 2, y + 1);
+	if (Verifier(x - 1, y - 2)) laListe.Ajouter(x - 1, y - 2);
+	if (Verifier(x - 1, y + 2)) laListe.Ajouter(x - 1, y + 2);
+	if (Verifier(x + 1, y - 2)) laListe.Ajouter(x + 1, y - 2);
+	if (Verifier(x + 1, y + 2)) laListe.Ajouter(x + 1, y + 2);
+	PreparerListe(laListe);
+}
 
+bool Board::Verifier(int x, int y) const
+{
+	bool bOk = false;
+
+	if (x >= 0 && y >= 0 &&
+		x < iMAXCASES && y < iMAXCASES &&
+		!caseVisitee_[x][y])
+	{
+		bOk = true;
+	}
+	return bOk;
+}
