@@ -32,6 +32,7 @@ void Grille::RemplirGrille(ifstream& fichier)
 		getline(fichier, ValeurDeBiblio);
 		Matrice.SetNbLignes(Matrice.GetNbLignes() + 1);
 		Matrice.SetNbColonnes(ValeurDeBiblio.size());
+		iMAXCASES = ValeurDeBiblio.size();
 		for (int colonne = 0; colonne < Matrice.GetNbColonnes(); colonne++)
 		{
 			
@@ -56,28 +57,30 @@ void Grille::Solutionner()
 }
 
 void Grille::TrouverChemin(int X, int Y)
-{
-	if (X == 0)//mouvement possible : haut,bas,droite
-	{
+{		
+		bool rechercheDoitContinuer_ = true;
+		if (Matrice[X][Y] == 'B')
+		{
+			rechercheDoitContinuer_ = false;
+			
+		}
+		else
+		{
+			Liste ListeAVisiter;
+			int x, y;
 
+			EtablirListe(ListeAVisiter, X, Y);
+			while (!ListeAVisiter.EstVide() && rechercheDoitContinuer_)
+			{
+				ListeAVisiter.Retirer(x, y);
+				TrouverChemin(x, y);
+			}
+		}
+		CaseVisite[X][Y] = false;
+		
+		
 	}
-	if (Y == Matrice.GetNbLignes())//mouvement possible : 
-	{
 
-	}
-	
-	if (X == Matrice.GetNbColonnes())//mouvement possible : haut,bas,gauche.
-	{
-
-	}
-	if (Y == 0)//mouvement possible : gauche,droite,bas
-	{
-
-	}
-	if (Matrice[X][Y] == 'B')
-	{
-
-	}
 
 
 }
@@ -148,15 +151,56 @@ void Grille::EtablirListe(Liste &laListe, int x, int y)
 	PreparerListe(laListe);
 }
 
-bool Board::Verifier(int x, int y) const
+bool Grille::Verifier(int x, int y) const
 {
 	bool bOk = false;
 
 	if (x >= 0 && y >= 0 &&
 		x < iMAXCASES && y < iMAXCASES &&
-		!caseVisitee_[x][y])
+		!CaseVisite[x][y])
 	{
 		bOk = true;
 	}
 	return bOk;
+}
+
+
+void Grille::PreparerListe(Liste &laListe)
+{
+	int x, y;
+
+	//	Etablir un poids pour chaque coordonnee
+	for (int indice = 0; indice < laListe.GetNombreDeCoordonnees(); ++indice)
+	{
+		// note : GetCoordonnee retourne une référence sur une coordonnée ce 
+		// qui permet de modifier le poids de cette Coordonnée dans la liste
+		// via SetPoids(); une alternative aurait été de mettre la classe Liste
+		// sous la forme d'une structure interne à la classe Board, ce qui aurait 
+		// donné accès à ses membres. Ou encore mettre une relation friend entre
+		// une classe et l'autre pour permettre le bris d'encapsulation
+		laListe.GetCoordonnee(indice).GetCoordonnee(x, y);
+		laListe.GetCoordonnee(indice).SetPoids(CalculerNbCasesAccessibles(x, y));
+	}
+	// Trier cette liste ...
+	laListe.Trier();
+
+	//  Pour débuggage...
+	//AfficherListe(laListe);
+	//system("pause");
+}
+
+
+int Grille::CalculerNbCasesAccessibles(int x, int y) const
+{
+	int iNb = 0;
+
+	if (Verifier(x - 2, y - 1)) iNb++;
+	if (Verifier(x - 2, y + 1)) iNb++;
+	if (Verifier(x + 2, y - 1)) iNb++;
+	if (Verifier(x + 2, y + 1)) iNb++;
+	if (Verifier(x - 1, y - 2)) iNb++;
+	if (Verifier(x - 1, y + 2)) iNb++;
+	if (Verifier(x + 1, y - 2)) iNb++;
+	if (Verifier(x + 1, y + 2)) iNb++;
+	return iNb;
 }

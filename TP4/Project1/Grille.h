@@ -3,7 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <list>
+#include "Liste.h"
+
 using namespace std;
 class Grille
 {
@@ -17,16 +18,24 @@ public:
 	
 private:
 	/*void EtablirListe(Liste &laListe, int x, int y);*/
+	bool Verifier(int x, int y) const;
+	void EtablirListe(Liste &laListe, int x, int y);
+
 	void TrouverChemin(int X, int Y);
 	void TrouverEntrer();
 	void TrouverSortie();
 	void AfficherChemin();
+	int CalculerNbCasesAccessibles(int x, int y) const;
+	void Grille::PreparerListe(Liste &laListe);
+
 	vector<int> PosEntrer;
 	vector<int> PosSortie;
 	Matrice<bool> CaseVisite;
 	Matrice<char> Matrice;
 	int meilleurtemps;
 	int TailleGrille;
+	unsigned int iMAXCASES;
+
 
 };
 

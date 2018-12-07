@@ -21,12 +21,24 @@
     <ClCompile Include="Grille.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Downloads\TrajetDuCavalierSolution (2018)\TrajetDuCavalierSolution (2018)\Solution(2018)\Solution(2018)\Coordonnee.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Downloads\TrajetDuCavalierSolution (2018)\TrajetDuCavalierSolution (2018)\Solution(2018)\Solution(2018)\Liste.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grille.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Matrice.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Downloads\TrajetDuCavalierSolution (2018)\TrajetDuCavalierSolution (2018)\Solution(2018)\Solution(2018)\Coordonnee.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Downloads\TrajetDuCavalierSolution (2018)\TrajetDuCavalierSolution (2018)\Solution(2018)\Solution(2018)\Liste.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

@@ -116,10 +116,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\Downloads\TrajetDuCavalierSolution (2018)\TrajetDuCavalierSolution (2018)\Solution(2018)\Solution(2018)\Coordonnee.cpp" />
+    <ClCompile Include="..\..\..\..\..\Downloads\TrajetDuCavalierSolution (2018)\TrajetDuCavalierSolution (2018)\Solution(2018)\Solution(2018)\Liste.cpp" />
     <ClCompile Include="Grille.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Downloads\TrajetDuCavalierSolution (2018)\TrajetDuCavalierSolution (2018)\Solution(2018)\Solution(2018)\Coordonnee.h" />
+    <ClInclude Include="..\..\..\..\..\Downloads\TrajetDuCavalierSolution (2018)\TrajetDuCavalierSolution (2018)\Solution(2018)\Solution(2018)\Liste.h" />
     <ClInclude Include="Grille.h" />
     <ClInclude Include="Matrice.h" />
   </ItemGroup>
