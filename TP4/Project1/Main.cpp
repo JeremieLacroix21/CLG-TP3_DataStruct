@@ -1,3 +1,6 @@
+//Jérémie Lacroix - décembre 2018
+//main.cpp
+//Test du bon fonctionnement de la classe grille.
 #include "Grille.h"
 #include <iostream> 
 #include <fstream> 

@@ -1,18 +1,13 @@
 ﻿  Grille.cpp
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(6): error C2065: 'iMAXCASES' : identificateur non déclaré
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(7): error C2065: 'iMAXCASES' : identificateur non déclaré
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(44): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(46): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(48): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(49): warning C4267: '=' : conversion de 'size_t' en 'unsigned int', perte possible de données
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(203): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(264): error C2065: 'iMAXCASES' : identificateur non déclaré
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(267): error C2065: 'iMAXCASES' : identificateur non déclaré
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(293): error C2065: 'iMAXCASES' : identificateur non déclaré
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(293): error C2440: '<function-style-cast>' : impossible de convertir de 'char' en 'std::string'
-  c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(293): note: Aucun constructeur n'a pu prendre le type de source, ou la résolution de la surcharge du constructeur était ambiguë
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(294): error C2065: 'iMAXCASES' : identificateur non déclaré
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(297): error C2065: 'iMAXCASES' : identificateur non déclaré
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(310): error C2065: 'iMAXCASES' : identificateur non déclaré
-c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(310): error C2440: '<function-style-cast>' : impossible de convertir de 'char' en 'std::string'
-  c:\users\lacro\source\repos\travailpratique3structure\tp4\project1\grille.cpp(310): note: Aucun constructeur n'a pu prendre le type de source, ou la résolution de la surcharge du constructeur était ambiguë
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(6): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(7): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(44): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(46): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(48): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(49): warning C4267: '=' : conversion de 'size_t' en 'unsigned int', perte possible de données
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(203): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(264): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(267): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(294): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\lacro\source\repos\travailpratique3structure2\tp4\project1\grille.cpp(297): warning C4018: '<' : incompatibilité signed/unsigned
+  Project1.vcxproj -> C:\Users\lacro\Source\Repos\TravailPratique3Structure2\TP4\x64\Debug\TP4_JérémieLacroix.exe

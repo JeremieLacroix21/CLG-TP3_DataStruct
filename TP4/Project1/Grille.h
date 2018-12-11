@@ -1,3 +1,8 @@
+//Jérémie Lacroix - décembre 2018
+//Grille.h
+//Définition de la classe grille.
+
+
 #pragma once
 #include "Matrice.h"
 #include <iostream>

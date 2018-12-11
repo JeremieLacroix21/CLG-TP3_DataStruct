@@ -1,10 +1,13 @@
+//Jérémie Lacroix - décembre 2018
+//Grille.cpp
+//Définition de la classe grille.
 #include "Grille.h"
 
 Grille::Grille(ifstream& fichier)
 {
 	RemplirGrille(fichier);
-	for (int i = 0; i<iMAXCASES; i++)
-		for (int j = 0; j<iMAXCASES; j++)
+	for (int i = 0; i<iMAXLIGNE; i++)
+		for (int j = 0; j<iMAXCOLONNES; j++)
 		{
 			CaseVisite[i][j] = false;
 			caseTrajet_[i][j] = -1;
@@ -200,7 +203,7 @@ bool Grille::Verifier(int x, int y) const
 	bool bOk = false;
 
 	if (x >= 0 && y >= 0)
-		if (x < iMAXCOLONNES && y < iMAXLIGNE )
+		if (x < iMAXLIGNE && y < iMAXCOLONNES )
 			if (!CaseVisite[x][y])
 				{
 					bOk = true;
@@ -261,10 +264,10 @@ void Grille::AfficherTrajetTrace() const
 {
 	system("cls");
 	cout << string(41, '-') << endl;
-	for (int i = 0; i<iMAXCASES; i++)
+	for (int i = 0; i<iMAXLIGNE; i++)
 	{
 		cout << "| ";
-		for (int j = 0; j<iMAXCASES; j++)
+		for (int j = 0; j<iMAXCOLONNES; j++)
 		{
 			if (caseTrajet_[i][j] != 0 && caseTrajet_[i][j] != -1)
 			{
@@ -290,11 +293,11 @@ void Grille::AfficherTrajetTrace() const
 void Grille::AfficherTrajet( system_clock::duration tempsRequis, system_clock::duration tempsRequisCumulatif) const
 {
 	
-	cout << string(7 * iMAXCASES + 1, '-') << endl;
-	for (int i = 0; i<iMAXCASES; i++)
+	cout << string(7 * iMAXCOLONNES + 1, '-') << endl;
+	for (int i = 0; i<iMAXLIGNE; i++)
 	{
 		cout << "| ";
-		for (int j = 0; j < iMAXCASES; j++)
+		for (int j = 0; j < iMAXCOLONNES; j++)
 		{
 			if (CaseVisite[i][j] == true)
 			{
@@ -307,7 +310,7 @@ void Grille::AfficherTrajet( system_clock::duration tempsRequis, system_clock::d
 			}
 		}
 		cout << endl;
-		cout << string(7 * iMAXCASES + 1, '-') << endl;
+		cout << string(7 * iMAXCOLONNES + 1, '-') << endl;
 	}
 	
 	cout << "en " << duration_cast<microseconds>(tempsRequis).count() << " microsecondes" << endl;

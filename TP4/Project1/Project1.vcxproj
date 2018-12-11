@@ -116,14 +116,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Board.cpp" />
     <ClCompile Include="Coordonnee.cpp" />
     <ClCompile Include="Grille.cpp" />
     <ClCompile Include="Liste.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Board.h" />
     <ClInclude Include="Coordonnee.h" />
     <ClInclude Include="Grille.h" />
     <ClInclude Include="Liste.h" />
