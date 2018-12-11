@@ -1,8 +1,18 @@
 #include "Grille.h"
 
-Grille::Grille()
+Grille::Grille(ifstream& fichier)
 {
-
+	RemplirGrille(fichier);
+	for (int i = 0; i<iMAXCASES; i++)
+		for (int j = 0; j<iMAXCASES; j++)
+		{
+			CaseVisite[i][j] = false;
+			caseTrajet_[i][j] = -1;
+		}
+	noPasDuTrajet_ = 0;
+	rechercheDoitContinuer_ = true;
+	
+	
 }
 
 Grille::~Grille()
@@ -32,7 +42,12 @@ void Grille::RemplirGrille(ifstream& fichier)
 		getline(fichier, ValeurDeBiblio);
 		Matrice.SetNbLignes(Matrice.GetNbLignes() + 1);
 		Matrice.SetNbColonnes(ValeurDeBiblio.size());
-		iMAXCASES = ValeurDeBiblio.size();
+		CaseVisite.SetNbLignes(Matrice.GetNbLignes());
+		CaseVisite.SetNbColonnes(ValeurDeBiblio.size());
+		caseTrajet_.SetNbLignes(Matrice.GetNbLignes());
+		caseTrajet_.SetNbColonnes(ValeurDeBiblio.size());
+		iMAXCOLONNES = ValeurDeBiblio.size();
+		iMAXLIGNE = Matrice.GetNbLignes();
 		for (int colonne = 0; colonne < Matrice.GetNbColonnes(); colonne++)
 		{
 			
@@ -41,6 +56,7 @@ void Grille::RemplirGrille(ifstream& fichier)
 		ligne++;
 		
 	} while (!fichier.eof());
+
 }
 
 
@@ -52,38 +68,75 @@ void Grille::Solutionner()
 	CaseVisite.SetNbLignes(Matrice.GetNbLignes());
 	CaseVisite.SetNbColonnes(Matrice.GetNbColonnes());
 	CaseVisite[PosEntrer[0]][PosEntrer[1]] = true;
+	
 	TrouverChemin(PosEntrer[0],PosEntrer[1]);
+	
+	
 
 }
 
 void Grille::TrouverChemin(int X, int Y)
-{		
-		bool rechercheDoitContinuer_ = true;
-		if (Matrice[X][Y] == 'B')
+{
+
+	CaseVisite[X][Y] = true;
+	caseTrajet_[X][Y] = noPasDuTrajet_;
+	noPasDuTrajet_++;
+
+	if (sommeplusbasse != NULL)
+	{
+		if (sommecourrante > sommeplusbasse)
 		{
-			rechercheDoitContinuer_ = false;
-			
+			//backtrack
 		}
 		else
 		{
-			Liste ListeAVisiter;
-			int x, y;
-
-			EtablirListe(ListeAVisiter, X, Y);
-			while (!ListeAVisiter.EstVide() && rechercheDoitContinuer_)
-			{
-				ListeAVisiter.Retirer(x, y);
-				TrouverChemin(x, y);
-			}
+			sommeplusbasse = sommecourrante;
 		}
-		CaseVisite[X][Y] = false;
-		
-		
 	}
 
+	if (Matrice[X][Y] != "B" && Matrice[X][Y] != "E" && Matrice[X][Y] != "R")
+	{
+		sommecourrante = sommecourrante + stoi(Matrice[X][Y]);
+	}
 
+	
+	if (Matrice[X][Y] == "B")
+	{
 
+		auto stop = system_clock::now();
+		auto tempsEcoule = stop - tempsDeDepart_;
+		auto tempsEcouleCumulatif = stop - tempsCumulatif_;
+		system("cls");
+		tempsDeDepart_ = system_clock::now();
+		AfficherTrajet(tempsEcoule, tempsEcouleCumulatif);
+		sommeplusbasse = sommecourrante;
+	}
+	if (Matrice[X][Y] == "R")
+	{
+
+	}
+
+	else
+	{
+		Liste ListeAVisiter;
+		int x, y;
+
+		EtablirListe(ListeAVisiter, X, Y);
+		while (!ListeAVisiter.EstVide() && rechercheDoitContinuer_)
+		{
+			ListeAVisiter.Retirer(x, y);
+			TrouverChemin(x, y);
+		}
+	}
+	CaseVisite[X][Y] = false;
+	caseTrajet_[X][Y] = -1;
+	noPasDuTrajet_--;
+	if (Matrice[X][Y] != "B" && Matrice[X][Y] != "E" && Matrice[X][Y] != "R")
+	{
+		sommecourrante = sommecourrante - stoi(Matrice[X][Y]);
+	}
 }
+
 
 void Grille::TrouverEntrer()
 {
@@ -91,11 +144,8 @@ void Grille::TrouverEntrer()
 	{
 		for (int collone = 0; collone < Matrice.GetNbColonnes(); collone++)
 		{
-			if (Matrice[ligne][collone] == 'E')
+			if (Matrice[ligne][collone] == "E")
 			{
-				cout << "Ligne de la entree : " << ligne << endl;
-				cout << "Colonne de la entree : " << collone << endl;
-
 				PosEntrer.push_back(ligne);
 				PosEntrer.push_back(collone);
 			}
@@ -108,10 +158,8 @@ void Grille::TrouverSortie()
 	{
 		for (int collone = 0; collone < Matrice.GetNbColonnes(); collone++)
 		{
-			if (Matrice[ligne][collone] == 'B')
+			if (Matrice[ligne][collone] == "B")
 			{
-				cout << "Ligne de la sortie : " << ligne << endl;
-				cout << "Colonne de la sortie : " << collone << endl;
 				PosSortie.push_back(ligne);
 				PosSortie.push_back(collone);
 			}
@@ -140,14 +188,10 @@ void Grille::EtablirListe(Liste &laListe, int x, int y)
 {
 	// A partir de la coordonnee x y, établir quelles sont les
 	// cases que l'on doit aller visiter.
-	if (Verifier(x - 2, y - 1)) laListe.Ajouter(x - 2, y - 1);
-	if (Verifier(x - 2, y + 1)) laListe.Ajouter(x - 2, y + 1);
-	if (Verifier(x + 2, y - 1)) laListe.Ajouter(x + 2, y - 1);
-	if (Verifier(x + 2, y + 1)) laListe.Ajouter(x + 2, y + 1);
-	if (Verifier(x - 1, y - 2)) laListe.Ajouter(x - 1, y - 2);
-	if (Verifier(x - 1, y + 2)) laListe.Ajouter(x - 1, y + 2);
-	if (Verifier(x + 1, y - 2)) laListe.Ajouter(x + 1, y - 2);
-	if (Verifier(x + 1, y + 2)) laListe.Ajouter(x + 1, y + 2);
+	if (Verifier(x, y - 1)) laListe.Ajouter(x, y - 1);
+	if (Verifier(x, y + 1)) laListe.Ajouter(x, y + 1);
+	if (Verifier(x + 1, y)) laListe.Ajouter(x + 1, y);
+	if (Verifier(x - 1, y)) laListe.Ajouter(x - 1, y);
 	PreparerListe(laListe);
 }
 
@@ -155,12 +199,13 @@ bool Grille::Verifier(int x, int y) const
 {
 	bool bOk = false;
 
-	if (x >= 0 && y >= 0 &&
-		x < iMAXCASES && y < iMAXCASES &&
-		!CaseVisite[x][y])
-	{
-		bOk = true;
-	}
+	if (x >= 0 && y >= 0)
+		if (x < iMAXCOLONNES && y < iMAXLIGNE )
+			if (!CaseVisite[x][y])
+				{
+					bOk = true;
+				}
+	
 	return bOk;
 }
 
@@ -194,13 +239,82 @@ int Grille::CalculerNbCasesAccessibles(int x, int y) const
 {
 	int iNb = 0;
 
-	if (Verifier(x - 2, y - 1)) iNb++;
-	if (Verifier(x - 2, y + 1)) iNb++;
-	if (Verifier(x + 2, y - 1)) iNb++;
-	if (Verifier(x + 2, y + 1)) iNb++;
-	if (Verifier(x - 1, y - 2)) iNb++;
-	if (Verifier(x - 1, y + 2)) iNb++;
-	if (Verifier(x + 1, y - 2)) iNb++;
-	if (Verifier(x + 1, y + 2)) iNb++;
+	if (Verifier(x - 1, y)) iNb++;
+	if (Verifier(x, y - 1)) iNb++;
+	if (Verifier(x + 1, y)) iNb++;
+	if (Verifier(x, y + 1)) iNb++;
 	return iNb;
+}
+
+bool Grille::OnPeutAtteindre(int x, int y) const
+{
+	int i = 0;
+
+	if (Verifier(x - 1, y)) i++;
+	if (Verifier(x, y - 1)) i++;
+	if (Verifier(x + 1, y)) i++;
+	if (Verifier(x, y + 1)) i++;
+	return (i > 0);
+}
+
+void Grille::AfficherTrajetTrace() const
+{
+	system("cls");
+	cout << string(41, '-') << endl;
+	for (int i = 0; i<iMAXCASES; i++)
+	{
+		cout << "| ";
+		for (int j = 0; j<iMAXCASES; j++)
+		{
+			if (caseTrajet_[i][j] != 0 && caseTrajet_[i][j] != -1)
+			{
+				cout.width(2);
+				cout << caseTrajet_[i][j] << "  | ";
+			}
+			else if (caseTrajet_[i][j] == -1)
+			{
+				cout <<Matrice[i][j]<< "   | ";
+			}
+			else
+			{
+				cout << "E   |";
+			}
+		}
+		cout << endl;
+		cout << string(41, '-') << endl;
+	}
+	// Wait(500);  // millisecondes dont 0,5 seconde
+	//system("pause");
+}
+
+void Grille::AfficherTrajet( system_clock::duration tempsRequis, system_clock::duration tempsRequisCumulatif) const
+{
+	
+	cout << string(7 * iMAXCASES + 1, '-') << endl;
+	for (int i = 0; i<iMAXCASES; i++)
+	{
+		cout << "| ";
+		for (int j = 0; j < iMAXCASES; j++)
+		{
+			if (CaseVisite[i][j] == true)
+			{
+				cout.width(4);
+				cout << Matrice[i][j] << " | ";
+			}
+			else
+			{
+				cout << "     | ";
+			}
+		}
+		cout << endl;
+		cout << string(7 * iMAXCASES + 1, '-') << endl;
+	}
+	
+	cout << "en " << duration_cast<microseconds>(tempsRequis).count() << " microsecondes" << endl;
+	cout << "ou si vous preferez en " << duration_cast<nanoseconds>(tempsRequis).count() << " nanosecondes" << endl;
+	cout << endl << "temps requis cumulatif : " << duration_cast<microseconds>(tempsRequisCumulatif).count() << " microsecondes" << endl;
+	cout << sommecourrante << endl;
+	// pour ne pas avoir à faire des enter quand on écrit dans un fichier de sortie...
+	if (&cout == &cout) system("pause");
+
 }
